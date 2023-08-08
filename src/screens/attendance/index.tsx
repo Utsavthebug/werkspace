@@ -29,20 +29,7 @@ const PunchInOutScreen = ({ openModal, handleModal, navigation }: Props) => {
         animationInTiming={1}
         animationOutTiming={1}
       >
-        <View
-          style={{
-            backgroundColor: 'white',
-            flex: 1,
-            position: 'absolute',
-            height: 50,
-            right: 10,
-            top: 40,
-            padding: 10,
-            paddingHorizontal: 15,
-            elevation: 10,
-            borderRadius: 10,
-          }}
-        >
+        <View style={{ ...styles.modalStyles, backgroundColor: colors.card }}>
           <Pressable
             onPress={() => {
               navigation.navigate(AttendanceRoutes.Attendance)
@@ -57,7 +44,7 @@ const PunchInOutScreen = ({ openModal, handleModal, navigation }: Props) => {
       </Modal>
 
       <View style={styles.timeDate}>
-        <LiveTime format="HH:mm" timeStyles={styles.timeStyles} />
+        <LiveTime format="HH:mm" timeStyles={{...styles.timeStyles,color:colors.text}} />
         <MonthDaysDate />
       </View>
       <View style={styles.iconLocation}>
@@ -103,7 +90,6 @@ const styles = StyleSheet.create({
   },
   timeStyles: {
     fontSize: 42,
-    color: '#1E1E1E',
   },
   gradientStyles: {
     borderRadius: 100,
@@ -130,5 +116,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'flex-start',
+  },
+  modalStyles: {
+    flex: 1,
+    position: 'absolute',
+    height: 50,
+    right: 10,
+    top: 40,
+    padding: 10,
+    paddingHorizontal: 15,
+    elevation: 10,
+    borderRadius: 10,
   },
 })

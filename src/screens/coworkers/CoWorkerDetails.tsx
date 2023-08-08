@@ -10,8 +10,6 @@ const CoWorkersDetails = () => {
   const { user } = route.params
   const { colors } = useTheme()
 
-  console.log({ user })
-
   const userDetailKeys = [
     { name: 'role', title: 'Role' },
     { name: 'contact', title: 'Contact' },

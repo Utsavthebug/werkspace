@@ -14,7 +14,7 @@ const CommonLeaveRemaining = ({ color, leaveText, days, direction = 'left' }: Pr
   return (
     <View style={styles.direction}>
       <Entypo name="dot-single" size={30} color={color} />
-      <View>
+      <View style={direction === 'right' && styles.rightAligned}>
         <MyText style={styles.textStyle}>{leaveText}</MyText>
         <MyText style={{ ...styles.daysStyle, textAlign: direction }}>{days}</MyText>
       </View>
@@ -38,5 +38,8 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     fontSize: 30,
     color: '#424243',
+  },
+  rightAligned: {
+    marginRight: 10,
   },
 })

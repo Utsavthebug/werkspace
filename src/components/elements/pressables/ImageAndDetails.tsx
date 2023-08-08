@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 8,
     height: 65,
+    paddingBottom: 4,
   },
   square: {
     backgroundColor: 'rgba(66, 66, 67, 0.11)',
@@ -83,10 +84,10 @@ const styles = StyleSheet.create({
     color: '#606060',
   },
   remaining: {
-    marginTop: 2,
-    fontSize: 12,
+    fontSize: 10,
     color: '#05A9C5',
     fontStyle: 'italic',
+    marginBottom: 4,
   },
 })
 

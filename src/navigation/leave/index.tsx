@@ -27,7 +27,15 @@ const LeaveStackNavigation = ({ navigation }: { navigation: NavigationProp<any, 
           ),
         }}
       />
-      <Stack.Screen name={LeaveRoutes.LeaveDetails} component={LeaveDetailScreen} />
+      <Stack.Screen
+        name={LeaveRoutes.LeaveDetails}
+        component={LeaveDetailScreen}
+        options={{
+          header: ({ navigation }) => (
+            <CommonScreenHeader title="Leave Details" navigation={navigation} />
+          ),
+        }}
+      />
       <Stack.Screen
         name={LeaveRoutes.AddLeave}
         component={AddLeave}

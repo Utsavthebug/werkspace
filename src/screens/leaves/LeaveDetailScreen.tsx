@@ -30,6 +30,10 @@ const LeaveDetailScreen = ({ route, navigation }: leaveDetailProps) => {
     navigation.navigate(LeaveRoutes.MyLeaves)
   }
 
+  const cancelLeaveHandler = () => {
+    navigation.goBack()
+  }
+
   return (
     <View style={styles.container}>
       <CommonDetails
@@ -47,7 +51,7 @@ const LeaveDetailScreen = ({ route, navigation }: leaveDetailProps) => {
       <View style={{ flexDirection: 'row', gap: 10, marginHorizontal: 15 }}>
         <ButtonEl
           title="CANCEL"
-          onPress={handleEdit}
+          onPress={cancelLeaveHandler}
           btnWidth="49%"
           btnTextColor="white"
           styles={{ backgroundColor: '#424243' }}

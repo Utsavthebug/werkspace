@@ -5,7 +5,7 @@ import LeavesUsed from 'components/modules/leaves/myLeaves/LeavesUsed'
 import ButtonEl from 'components/elements/Button'
 import { LeaveRoutes } from 'constants/routes'
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 
 type Props = {
   navigation: NavigationProp<any, any>
@@ -16,7 +16,7 @@ const MyLeaves = ({ navigation }: Props) => {
     navigation.navigate(LeaveRoutes.AddLeave)
   }
   return (
-    <View style={{ flex: 1, backgroundColor: 'white' }}>
+    <View style={{ flex: 1 }}>
       <LeaveBalance />
       <LeavesUsed />
       <LeaveBarScreen />

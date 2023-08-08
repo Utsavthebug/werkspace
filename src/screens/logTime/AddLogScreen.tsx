@@ -127,7 +127,7 @@ const AddLogScreen = () => {
         </Wrapper>
 
         {showProject && (
-          <Wrapper label={'Project Name'}>
+          <Wrapper label={'Project Name'} style={{ marginTop: isMargin ? -200 : 0 }}>
             <Pressable onPress={() => setSearchModalOpen(true)}>
               <TextInputEl
                 placeholder="Select Projects"
@@ -152,7 +152,7 @@ const AddLogScreen = () => {
           </Wrapper>
         )}
 
-        <Wrapper label={'Remarks'}>
+        <Wrapper label={'Remarks'} style={{ marginTop: !showProject && isMargin ? -200 : 0 }}>
           <TextInputEl
             placeholder={'Add Remarks'}
             multiline={true}

@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   },
   square: {
     width: '30%',
-    height: 50,
+    height: 55,
     borderRadius: 5,
     alignItems: 'center',
     justifyContent: 'center',
@@ -76,8 +76,7 @@ const styles = StyleSheet.create({
   remaining: {
     fontSize: 9,
     color: '#05A9C5',
-    marginRight: 15,
-    alignSelf: 'flex-end',
+    marginBottom: 4,
   },
   imageStyle: {
     width: '100%',

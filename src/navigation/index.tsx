@@ -47,7 +47,7 @@ const Navigation = () => {
     }
     getStatusDarkMode()
   }, [scheme])
-  console.log(token)
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <NavigationContainer theme={darkMode ? MyDarkTheme : MyTheme}>

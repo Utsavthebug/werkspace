@@ -48,15 +48,13 @@ const LoginForm = ({ navigation }: { navigation: NavigationProp<any, any> }) => 
   const passwordIcon = hidePassword ? notShowIcon : showIcon
 
   const formSubmitHandler = async () => {
-    let enteredUsername = values.username.trim()
-    let enteredPassword = values.password.trim()
     await AsyncStorage.setItem('token', 'true')
     dispatch(setToken('true'))
 
-    navigation.replace('NestedNav', { screen: DashboardRoutes.Dashboard })
-
     return
     onSubmit()
+    let enteredUsername = values.username.trim()
+    let enteredPassword = values.password.trim()
 
     const usernameIsValid = enteredUsername.includes('@')
     const passwordsIsValid = enteredPassword.length >= 4
@@ -77,7 +75,6 @@ const LoginForm = ({ navigation }: { navigation: NavigationProp<any, any> }) => 
       try {
         await AsyncStorage.setItem('token', 'true')
         dispatch(setToken('true'))
-        navigation.replace(DashboardRoutes.Dashboard)
       } catch (err) {
         Alert.alert('Something went wrong. Please try again later.')
       }

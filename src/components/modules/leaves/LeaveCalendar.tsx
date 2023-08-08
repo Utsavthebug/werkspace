@@ -35,7 +35,7 @@ const LeaveCalendar = ({ setDateSelected, dateSelected }: Props) => {
 
     const today = MuiFormatDate()
     const marked = {
-      [today]: { selected: true },
+      // [today]: { selected: true },
     }
 
     return { ...markedWeekends, ...marked }
