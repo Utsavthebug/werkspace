@@ -1,11 +1,16 @@
 import { StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
-import { useRoute } from '@react-navigation/native'
+import { useRoute, useTheme } from '@react-navigation/native'
 import CommonDetails from 'components/modules/CommonDetails'
+import MyText from 'components/elements/MyText'
+import Avatar from 'components/elements/Avatar'
 
 const CoWorkersDetails = () => {
   const route = useRoute<any>()
   const { user } = route.params
+  const { colors } = useTheme()
+
+  console.log({ user })
 
   const userDetailKeys = [
     { name: 'role', title: 'Role' },
@@ -35,10 +40,12 @@ const CoWorkersDetails = () => {
   return (
     <View style={styles.main}>
       <View style={styles.overview}>
-        <Image source={{ uri: user?.profile }} style={styles.image} />
+        <View style={[styles.circle, { backgroundColor: colors.avatarBg }]}>
+          <Avatar image={user?.profile} imageStyles={styles.image} name={user?.name} />
+        </View>
         <View style={styles.intro}>
-          <Text style={styles.title}>{user?.name}</Text>
-          <Text style={styles.position}>{user?.position}</Text>
+          <MyText style={styles.title}>{user?.name}</MyText>
+          <MyText style={styles.position}>{user?.position}</MyText>
         </View>
       </View>
       <CommonDetails titles={userDetailKeys} fields={userDetailValues} cardStyle={styles.details} />
@@ -58,7 +65,14 @@ const styles = StyleSheet.create({
     gap: 16,
     marginBottom: 30,
   },
-  image: { width: 90, height: 90, borderRadius: 12 },
+  circle: {
+    width: 90,
+    height: 90,
+    borderRadius: 45,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  image: { width: 90, height: 90, borderRadius: 45 },
   intro: {
     gap: 2,
     paddingTop: 4,

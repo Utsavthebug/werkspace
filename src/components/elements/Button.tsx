@@ -22,6 +22,7 @@ export interface ButtonProps {
   fontSize?: number
   fontWeight?: fontWeightType
   backgroundColor?: string
+  hasPressedEffect?: boolean
   textDecorationLine?: 'none' | 'underline' | 'line-through' | 'underline line-through' | undefined
 }
 const defaultProps = {
@@ -36,10 +37,11 @@ const defaultProps = {
   disabled: false,
   iconToLeft: false,
   btnTextBold: true,
-  fontSize: 16,
+  fontSize: 14,
   fontWeight: '600',
   backgroundColor: Colors.wenBlue,
   textDecorationLine: 'none',
+  hasPressedEffect: true,
 }
 function ButtonEl(props: ButtonProps) {
   const {
@@ -60,6 +62,7 @@ function ButtonEl(props: ButtonProps) {
     fontWeight,
     backgroundColor,
     textDecorationLine,
+    hasPressedEffect,
   } = props
   return (
     <Pressable
@@ -73,9 +76,10 @@ function ButtonEl(props: ButtonProps) {
           ...styles,
           opacity: disabled ? 0.7 : 1,
         },
-        pressed && {
-          backgroundColor: Colors.pressEffect,
-        },
+        pressed &&
+          hasPressedEffect && {
+            backgroundColor: Colors.pressEffect,
+          },
       ]}
       onPress={() => onPress()}
       disabled={disabled || loading}

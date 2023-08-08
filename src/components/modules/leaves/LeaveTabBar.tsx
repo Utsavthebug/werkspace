@@ -7,12 +7,15 @@ import CasualLeave from 'screens/leaves/tabScreen/CasualLeave'
 import SickLeave from 'screens/leaves/tabScreen/SickLeave'
 import { Entypo } from '@expo/vector-icons'
 import CustomIconLabel from './CustomIconLabel'
+import MyText from 'components/elements/MyText'
+import { useTheme } from '@react-navigation/native'
 
 type Props = {}
 
 const Tab = createMaterialTopTabNavigator()
 
 const LeaveTabBar = (props: Props) => {
+  const { colors } = useTheme()
   return (
     <View
       style={{
@@ -24,13 +27,13 @@ const LeaveTabBar = (props: Props) => {
       <Tab.Navigator
         screenOptions={{
           tabBarStyle: {
-            backgroundColor: '#f5f5f5',
             height: 55,
             borderRadius: 10,
             marginHorizontal: 2,
+            backgroundColor: colors.leaveTabBar,
           },
           tabBarIndicatorStyle: {
-            backgroundColor: 'white',
+            backgroundColor: colors.lighterBackground,
             height: '100%',
             borderRadius: 10,
             elevation: 10,
@@ -49,7 +52,7 @@ const LeaveTabBar = (props: Props) => {
         <Tab.Screen
           name={LeaveRoutes.AllLeave}
           component={AllLeave}
-          options={{ tabBarLabel: 'All' }}
+          options={{ tabBarLabel: () => <MyText>All</MyText> }}
         />
         <Tab.Screen
           name={LeaveRoutes.CasualLeave}
@@ -58,6 +61,7 @@ const LeaveTabBar = (props: Props) => {
             tabBarShowLabel: false,
             tabBarIconStyle: styles.iconStyles,
             tabBarIcon: () => <CustomIconLabel color="#F74F75" label="Casual" />,
+            tabBarLabel: () => <MyText>All</MyText>,
           }}
         />
         <Tab.Screen
@@ -67,6 +71,7 @@ const LeaveTabBar = (props: Props) => {
             tabBarShowLabel: false,
             tabBarIconStyle: styles.iconStyles,
             tabBarIcon: () => <CustomIconLabel color="#4363C6" label="Sick" />,
+            tabBarLabel: () => <MyText>All</MyText>,
           }}
         />
       </Tab.Navigator>

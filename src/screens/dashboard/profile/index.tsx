@@ -8,6 +8,10 @@ import { NavigationProp, useTheme } from '@react-navigation/native'
 import Avatar from 'components/elements/Avatar'
 import Icon from 'components/elements/Icon'
 import { backgroundColor } from 'styles/colors'
+import { DashboardRoutes } from 'constants/routes/index'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useAppDispatch } from 'redux/hook'
+import { setToken } from 'redux/reducer/initialLoadingSlice'
 
 const userProfile = {
   image:
@@ -20,6 +24,8 @@ const userProfile = {
 
 const ProfileScreen = ({ navigation }: { navigation: NavigationProp<any> }) => {
   const { colors } = useTheme()
+  const dispatch = useAppDispatch()
+
   return (
     <ScrollView
       style={[profileStyles.container, { backgroundColor: colors.background }]}
@@ -90,6 +96,11 @@ const ProfileScreen = ({ navigation }: { navigation: NavigationProp<any> }) => {
             text1={'Logout'}
             text2={'Logout of this app'}
             hasIcon={true}
+            onPress={async () => {
+              await AsyncStorage.setItem('token', '')
+              dispatch(setToken(''))
+            }}
+
           />
         </View>
       </View>
@@ -112,7 +123,7 @@ const ProfileScreen = ({ navigation }: { navigation: NavigationProp<any> }) => {
             text2={'Change Password'}
             extraStyles={{ borderBottomWidth: 1, borderBottomColor: colors.border }}
             hasIcon={true}
-            onPress={() => navigation.navigate(NavigationRoutes.ResetPasswordForm)}
+            onPress={() => navigation.navigate(DashboardRoutes.NewPassword)}
           />
 
           <ProfileInfo

@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Text, StyleSheet, View, Pressable, TextInput } from 'react-native'
 import MyText from '../MyText'
 import KeyboardAvoidingComponent from '../KeyboardDismissal'
+import { useTheme } from '@react-navigation/native'
 
 interface OTPtype {
   code: string
@@ -18,6 +19,7 @@ const OTPComponent: React.FunctionComponent<OTPtype> = ({
 }) => {
   const boxArray = new Array(maximumLength).fill(0)
   const inputRef = React.useRef<TextInput | null>(null)
+  const { colors } = useTheme()
 
   const [isInputBoxFocused, setIsInputBoxFocused] = React.useState(false)
 
@@ -50,7 +52,13 @@ const OTPComponent: React.FunctionComponent<OTPtype> = ({
 
     const StyledSplitBoxes = isInputBoxFocused && isValueFocused
     return (
-      <View style={[OtpStyle.splitBoxes, StyledSplitBoxes && OtpStyle.splitBoxFocused]} key={index}>
+      <View
+        style={[
+          OtpStyle.splitBoxes,
+          StyledSplitBoxes && { ...OtpStyle.splitBoxFocused, borderColor: colors.otpFocused },
+        ]}
+        key={index}
+      >
         <MyText style={OtpStyle.splitboxText} fontStyle="light">
           {digit}
         </MyText>
@@ -116,7 +124,6 @@ const OtpStyle = StyleSheet.create({
     justifyContent: 'center',
   },
   splitBoxFocused: {
-    borderColor: 'black',
     borderEndColor: '#ecdbba',
   },
 })

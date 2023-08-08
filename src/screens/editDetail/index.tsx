@@ -23,12 +23,14 @@ type extraProps = {
 
 import MyText from 'components/elements/MyText'
 import { BottomSheetDefaultBackdropProps } from '@gorhom/bottom-sheet/lib/typescript/components/bottomSheetBackdrop/types'
-import { NavigationProp } from '@react-navigation/native'
+import { NavigationProp, useTheme } from '@react-navigation/native'
 import { Colors } from 'constants/colors'
 
 const ProfileDetail = ({ navigation }: { navigation: NavigationProp<any, any> }) => {
   const [dropdownOpen, setDropDownOpen] = React.useState<boolean>(false)
   const [image, setImage] = useState<string | null>(null)
+
+  const { colors } = useTheme()
 
   const [value, setValue] = React.useState(null)
   const [items, setItems] = React.useState([
@@ -81,7 +83,7 @@ const ProfileDetail = ({ navigation }: { navigation: NavigationProp<any, any> })
     try {
       if (!MediaLibraryStatus?.granted) {
         const permissionResult = await requestMediaLibrary()
-        if ([permissionResult.granted === false]) return
+        if (permissionResult.granted === false) return
       }
 
       let result = await ImagePicker.launchImageLibraryAsync({
@@ -206,8 +208,9 @@ const ProfileDetail = ({ navigation }: { navigation: NavigationProp<any, any> })
           index={0}
           snapPoints={snapPoints}
           backdropComponent={renderBackdrop}
+          backgroundStyle={{ backgroundColor: colors.card }}
         >
-          <View style={styles.contentContainer}>
+          <View style={[styles.contentContainer]}>
             <Pressable
               onPress={pickImage}
               style={({ pressed }) => [

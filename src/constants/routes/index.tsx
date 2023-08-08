@@ -10,30 +10,45 @@ export const NavigationRoutes = {
   Profile: 'Profile',
   ResetPassword: 'Reset Password',
   ResetPasswordForm: 'Reset Form',
-  NewPassword: 'New Password',
   EditDetail: 'Edit Details',
+  CoWorkers: 'Co-Workers',
+  NewPassword: 'New Password',
 }
 
 export const DashboardRoutes = {
   Dashboard: 'Dashboard',
   Calendar: 'Calendar',
-  CoWorkers: 'Co-workers',
+  CoWorkers: 'Co-Workers',
   NoticeBoard: 'Notice Board',
   Resources: 'Resources',
   CoWorkerDetail: 'Details',
   Notifications: 'Notifications',
   MyProfile: 'My Profile',
+  NewPassword: 'New Password',
   NoticeDetails: 'Notice Details',
+}
+
+export const CoWorkersRoute = {
+  CoWorkers: 'CoWorkers',
+  CoWorkerDetails: 'CoWorkerDetails',
 }
 
 export const ProjectRoutes = {
   Projects: 'Projects',
   ProjectDetails: 'ProjectDetails',
+  ProjectLog: 'ProjectLog',
+}
+
+export const ProjectLogRoutes = {
+  Logtimes: 'ProjectLogTimes',
+  AddLog: 'ProjectAddLog',
+  LogDetails: 'ProjectLogDetails',
 }
 
 export const LogtimeRoutes = {
   Logtimes: 'Logtimes',
   AddLog: 'AddLog',
+  LogDetails: 'LogDetails',
 }
 
 export const LeaveRoutes = {
@@ -47,9 +62,9 @@ export const LeaveRoutes = {
 }
 
 export const AttendanceRoutes = {
-  Attendance: 'Attendance',
+  Attendance: 'AttendanceCalendar',
   AttendanceDetails: 'AttendanceDetails',
-  PunchInOut: 'PunchInOut',
+  PunchInOut: 'Attendance',
 }
 
 export const PunchRoutes = {

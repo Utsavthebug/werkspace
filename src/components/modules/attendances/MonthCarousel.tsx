@@ -90,6 +90,6 @@ export default MonthCarousel
 
 const styles = StyleSheet.create({
   linearGradient: {
-    borderRadius: 15,
+    borderRadius: 30,
   },
 })

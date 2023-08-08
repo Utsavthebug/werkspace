@@ -9,6 +9,44 @@ export const fontFamilyType: fontFamilyOptions = {
   medium: 'NunitoSans-Medium',
 }
 
+const themeLabelContainer = {
+  flexDirection: 'row-reverse',
+  justifyContent: 'space-between',
+  width: '90%',
+}
+
+const labelStyle = { fontSize: 18, fontWeight: '500' }
+export const lightMode = 'light'
+export const modeDark = 'dark'
+export const systemMode = 'systemMode'
+
+export const getDarkModeConst = (colors: any, darkMode: boolean) => [
+  {
+    id: lightMode,
+    label: 'Off',
+    value: 'light',
+    containerStyle: themeLabelContainer,
+    labelStyle: { ...labelStyle, color: colors.text },
+    color: colors.text,
+  },
+  {
+    id: modeDark,
+    label: 'On',
+    value: 'dark',
+    containerStyle: themeLabelContainer,
+    labelStyle: { ...labelStyle, color: colors.text },
+    color: colors.text,
+  },
+  {
+    id: systemMode,
+    label: 'Use device settings',
+    value: 'systemMode',
+    containerStyle: themeLabelContainer,
+    labelStyle: { ...labelStyle, color: colors.text },
+    color: colors.text,
+  },
+]
+
 //dummy datas
 
 export const months = [

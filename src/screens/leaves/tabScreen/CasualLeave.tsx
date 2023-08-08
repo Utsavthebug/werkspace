@@ -6,7 +6,7 @@ type Props = {}
 
 const CasualLeave = (props: Props) => {
   return (
-    <View style={{ backgroundColor: 'white', flex: 1, paddingVertical: 15 }}>
+    <View style={{ flex: 1, paddingVertical: 15 }}>
       <MyText>Scik</MyText>
     </View>
   )

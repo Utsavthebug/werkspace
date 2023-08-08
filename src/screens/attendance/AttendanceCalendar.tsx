@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { AttendanceDatas, months } from 'helpers/constants'
 import { FlatList, StyleSheet, View } from 'react-native'
-import { NavigationProp, useFocusEffect } from '@react-navigation/native'
+import { NavigationProp, useFocusEffect, useTheme } from '@react-navigation/native'
 import AttendanceHoliday from 'components/modules/attendances/AttendanceHoliday'
 import AttendanceLeave from 'components/modules/attendances/AttendanceLeave'
 import AttendanceData from 'components/modules/attendances/AttendanceDatas'
@@ -27,6 +27,7 @@ const AttendanceCalendar: React.FunctionComponent<AttendanceeProps> = ({ navigat
   const [isMulti, setIsMulti] = useState<Boolean>(false)
   const [indexs, setIndexs] = useState<number>(new Date().getMonth())
   const [value, setValue] = useState(`${new Date().getFullYear()}`)
+  const { colors } = useTheme()
 
   const officeDates = getOfficeYearns()
   const [items, setItems] = useState(officeDates)
@@ -97,7 +98,7 @@ const AttendanceCalendar: React.FunctionComponent<AttendanceeProps> = ({ navigat
         <MyText style={styles.dropdownText} fontStyle="bold">
           Filter by year:
         </MyText>
-        <View style={{ width: '25%' }}>
+        <View style={{ width: '35%' }}>
           <Dropdown
             closeIcon={<Icon name="smallCalendar" size={16} color="black" />}
             openIcon={<Icon name="smallCalendar" size={16} color="black" />}
@@ -108,7 +109,7 @@ const AttendanceCalendar: React.FunctionComponent<AttendanceeProps> = ({ navigat
             zIndex={1000}
             isMarginOutside
             handleOutsideMargin={handleOutsideMargin}
-            styleLabel={{ color: '#4363C6' }}
+            styleLabel={{ color: colors.text }}
           />
         </View>
       </View>
@@ -132,7 +133,6 @@ export default AttendanceCalendar
 
 const styles = StyleSheet.create({
   mainContainer: {
-    backgroundColor: 'white',
     flex: 1,
   },
   dropdownStyles: {
@@ -152,13 +152,11 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     padding: 10,
     paddingVertical: 12,
-    backgroundColor: 'white',
   },
   tableTitle: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: '#EEEEEE',
     height: 30,
   },
   tableText: {

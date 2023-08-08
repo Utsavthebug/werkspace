@@ -19,7 +19,7 @@ const SearchProject = ({ value, setValue, handleModalShow }: Props) => {
         value={value}
         placeholder="Search a Project..."
         onChangeText={setValue}
-        viewStyles={styles.viewStyles}
+        viewStyles={{ ...styles.viewStyles, backgroundColor: colors.lighterBackground }}
         hasIcon
         iconToRight
         rightIcon={

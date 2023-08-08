@@ -19,7 +19,7 @@ const CommonScreenHeader = ({ title, navigation, headerRight }: ScreenHeaderProp
       <View
         style={[
           styles.header,
-          { backgroundColor: colors.header, borderBottomColor: colors.border },
+          { backgroundColor: colors.secondBackground, borderBottomColor: colors.border },
         ]}
       >
         <BackButton navigation={navigation} />

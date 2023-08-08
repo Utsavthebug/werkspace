@@ -1,47 +1,37 @@
 import React from 'react'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { View } from 'react-native'
+import LeaveDaysCount from 'components/modules/leaves/LeaveDaysCount'
+import LeaveTabBar from 'components/modules/leaves/LeaveTabBar'
+import ButtonEl from 'components/elements/Button'
+import { NavigationProp, useTheme } from '@react-navigation/native'
 import { LeaveRoutes } from 'constants/routes'
-import { NavigationProp } from '@react-navigation/native'
-import LeaveScreen from './LeaveScreen'
-import LeaveDetailScreen from './LeaveDetailScreen'
-import AddLeave from './AddLeave'
-import MyLeaves from './MyLeaves'
-import CommonScreenHeader from 'components/elements/CommonScreenHeader'
+import Icon from 'components/elements/Icon'
 
-const Stack = createNativeStackNavigator()
+type Props = {
+  navigation: NavigationProp<any, any>
+}
 
-const LeaveStackScreen = ({ navigation }: { navigation: NavigationProp<any, any> }) => {
+const LeaveScreen = ({ navigation }: Props) => {
+  const { colors } = useTheme()
   return (
-    <Stack.Navigator
-      screenOptions={{
-        headerTitleStyle: { color: 'black', fontSize: 20, fontWeight: '600' },
-        headerTitleAlign: 'center',
-      }}
-    >
-      <Stack.Screen
-        name={LeaveRoutes.Leaves}
-        component={LeaveScreen}
-        options={{
-          header: () => <CommonScreenHeader title="Leave Management" navigation={navigation} />,
+    <View style={{ flex: 1, backgroundColor: colors.secondBackground }}>
+      <LeaveDaysCount />
+      <LeaveTabBar />
+      <ButtonEl
+        title="Add Leave"
+        onPress={() => {
+          navigation.navigate(LeaveRoutes.AddLeave)
         }}
+        btnWidth="40%"
+        hasIcon
+        iconToLeft
+        btnTextBold
+        btnTextColor="white"
+        icon={<Icon name="Plus" width={24} height={24} color="white" />}
+        styles={{ position: 'absolute', bottom: 40, right: 20, borderRadius: 20 }}
       />
-      <Stack.Screen name={LeaveRoutes.LeaveDetails} component={LeaveDetailScreen} />
-      <Stack.Screen
-        name={LeaveRoutes.AddLeave}
-        component={AddLeave}
-        options={{
-          header: () => <CommonScreenHeader title="Add Leave" navigation={navigation} />,
-        }}
-      />
-      <Stack.Screen
-        name={LeaveRoutes.MyLeaves}
-        component={MyLeaves}
-        options={{
-          header: () => <CommonScreenHeader title="My Leaves" navigation={navigation} />,
-        }}
-      />
-    </Stack.Navigator>
+    </View>
   )
 }
 
-export default LeaveStackScreen
+export default LeaveScreen

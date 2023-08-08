@@ -1,3 +1,5 @@
+import { lightMode, modeDark } from 'helpers/constants'
+
 export const isEmpty = (value: any) =>
   value === undefined ||
   value === null ||
@@ -36,4 +38,35 @@ export const getAbbreviatedName = (name: string) => {
     .split(' ')
     .map((item) => item.charAt(0))
     .join('')
+}
+
+export const handleScreenFade = ({ current, next, layouts }: any) => ({
+  cardStyle: {
+    transform: [
+      {
+        translateY: current.progress.interpolate({
+          inputRange: [0, 1],
+          outputRange: [layouts.screen.height / 4, 0],
+        }),
+      },
+    ],
+    opacity: current.progress.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0, 1],
+    }),
+  },
+  overlayStyle: {
+    opacity: current.progress.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0, 1],
+    }),
+  },
+})
+
+export const getDarkModeStatus = (darkmodeStatus: string | null, deviceDarkMode: boolean) => {
+  let darkMode
+  if (darkmodeStatus === lightMode) darkMode = false
+  else if (darkmodeStatus === modeDark) darkMode = true
+  else darkMode = deviceDarkMode
+  return darkMode
 }

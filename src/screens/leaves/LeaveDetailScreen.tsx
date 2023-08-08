@@ -46,13 +46,13 @@ const LeaveDetailScreen = ({ route, navigation }: leaveDetailProps) => {
       />
       <View style={{ flexDirection: 'row', gap: 10, marginHorizontal: 15 }}>
         <ButtonEl
-          title="Cancel"
+          title="CANCEL"
           onPress={handleEdit}
           btnWidth="49%"
           btnTextColor="white"
           styles={{ backgroundColor: '#424243' }}
         />
-        <ButtonEl title="Edit" onPress={handleEdit} btnWidth={'49%'} btnTextColor="white" />
+        <ButtonEl title="EDIT" onPress={handleEdit} btnWidth={'49%'} btnTextColor="white" />
       </View>
     </View>
   )
@@ -63,7 +63,6 @@ export default LeaveDetailScreen
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f8f8',
     shadowColor: '#000000',
     shadowOffset: {
       width: 0,

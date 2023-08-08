@@ -67,7 +67,7 @@ const LeaveCalendar = ({ setDateSelected, dateSelected }: Props) => {
         enableSwipeMonths
         hideExtraDays
         // minDate={'2023-05-10'}
-        style={{ marginTop: 15 }}
+        style={{ marginTop: 15, borderRadius: 10 }}
         onDayPress={(e) => handleKeyPress(e)}
         selected={'2023-05-29'}
         theme={{

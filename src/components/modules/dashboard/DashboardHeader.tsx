@@ -3,20 +3,14 @@ import { StyleSheet, View, Pressable } from 'react-native'
 import { ParamListBase, useNavigation, useTheme } from '@react-navigation/native'
 import { DashboardRoutes } from 'constants/routes'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { useAppDispatch, useAppSelector } from 'redux/hook'
-import { toggleTheme } from 'redux/reducer/themeSlice'
+import { useAppSelector } from 'redux/hook'
 import Avatar from 'components/elements/Avatar'
 import Icon from 'components/elements/Icon'
 
-export const DashboardHeader = () => {
+export const DashboardHeader = ({ handlePresentModalPress }: any) => {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>()
   const { colors } = useTheme()
-  const dispatch = useAppDispatch()
   const { darkMode } = useAppSelector((state) => state.appTheme)
-
-  const themeChangeHandler = async () => {
-    dispatch(toggleTheme(!darkMode))
-  }
 
   return (
     <View style={[styles.mainHeader, { backgroundColor: colors.card }]}>
@@ -24,7 +18,7 @@ export const DashboardHeader = () => {
         <Icon name={darkMode ? 'WENDARK' : 'WENLIGHT'} width={125} height={50} />
       </View>
       <View style={styles.miniLogoContainer}>
-        <Pressable onPress={themeChangeHandler}>
+        <Pressable onPress={handlePresentModalPress}>
           <Icon name={darkMode ? 'Sun' : 'Moon'} width={18} height={18} />
         </Pressable>
         <Pressable

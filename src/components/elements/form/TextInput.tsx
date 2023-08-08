@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TextInput,
   TextInputProps,
+  TextStyle,
   useColorScheme,
   View,
 } from 'react-native'
@@ -21,7 +22,7 @@ import {
 import { isEmpty } from 'utils'
 
 type TextInputElProps = {
-  styles?: Object
+  styles?: TextStyle
   viewStyles?: Object
   onChangeText?: Function
   value?: string
@@ -34,6 +35,8 @@ type TextInputElProps = {
   error?: string
   secure?: boolean
   multiline?: boolean
+  readOnly?: boolean
+  placeholderTextColor?: string
 }
 const defaultProps = {
   onChangeText: (value: string) => {},
@@ -48,6 +51,7 @@ const defaultProps = {
   value: '',
   isPasswordtype: false,
   multiline: false,
+  readOnly: false,
 }
 function TextInputEl(props: TextInputElProps & typeof defaultProps & TextInputProps) {
   const {
@@ -65,6 +69,8 @@ function TextInputEl(props: TextInputElProps & typeof defaultProps & TextInputPr
     viewStyles,
     secure,
     multiline,
+    readOnly,
+    placeholderTextColor,
   } = props
   const scheme = useColorScheme()
   const { darkMode } = useAppSelector((state) => state.appTheme)
@@ -84,7 +90,11 @@ function TextInputEl(props: TextInputElProps & typeof defaultProps & TextInputPr
           style={{
             ...inputStyles.input,
             ...styles,
-            color: scheme === 'dark' || darkMode ? DarkTheme.colors.text : DefaultTheme.colors.text,
+            color: styles.color
+              ? styles.color
+              : darkMode
+              ? DarkTheme.colors.text
+              : DefaultTheme.colors.text,
           }}
           onChangeText={(text) => onChangeText(text)}
           value={value}
@@ -92,9 +102,16 @@ function TextInputEl(props: TextInputElProps & typeof defaultProps & TextInputPr
           placeholder={placeholder}
           keyboardType={keyboardType}
           inlineImageLeft={'message'}
-          placeholderTextColor={scheme === 'dark' || darkMode ? DarkTheme.colors.text : textColor}
+          placeholderTextColor={
+            placeholderTextColor
+              ? placeholderTextColor
+              : darkMode
+              ? DarkTheme.colors.text
+              : textColor
+          }
           multiline={multiline}
           numberOfLines={multiline ? 5 : 1}
+          readOnly={readOnly}
         />
         {hasIcon && (!iconToLeft || iconToRight) ? (
           <View style={inputStyles.iconContainer}>{rightIcon}</View>
@@ -130,7 +147,7 @@ const inputStyles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'row',
-    marginRight: 10,
+    marginRight: 5,
   },
 })
 export default TextInputEl

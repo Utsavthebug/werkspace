@@ -9,13 +9,21 @@ import React, { useState } from 'react'
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import { getOfficeYearns } from 'utils'
 import KeyboardAvoidingComponent from 'components/elements/KeyboardDismissal'
+import useForm from 'hooks/useForm'
+import { useTheme } from '@react-navigation/native'
 
 type Props = {}
+const initialState = {
+  leaveType: { isRequired: true, value: '' },
+  leaveReason: { isRequired: true, value: '' },
+  date: '',
+}
 
 const AddLeave = (props: Props) => {
   const { isMargin, handleOutsideMargin } = useIsMargin()
   const [leaveReason, setLeaveReason] = useState<any>(undefined)
   const [testt, setTestt] = useState(false)
+  const { colors } = useTheme()
   // const [selectedData, setSelectedDate] = useState(moment().format('YYYY-MM-DD'))
   const [dateSelected, setDateSelected] = useState({
     [moment().format('YYYY-MM-DD')]: {
@@ -27,7 +35,16 @@ const AddLeave = (props: Props) => {
     },
   })
 
-  const handleEdit = () => {}
+  const { onSubmit, onChange, onBlur, values, errors, clearValues, isSubmitting } = useForm(
+    initialState,
+    undefined,
+    () => {
+      console.log(values)
+    }
+  )
+  const handleEdit = () => {
+    onSubmit()
+  }
 
   const handleChangeText = () => {}
 
@@ -38,23 +55,29 @@ const AddLeave = (props: Props) => {
       <KeyboardAvoidingComponent>
         <View style={styles.container}>
           <Dropdown
-            value={2012}
+            value={values.leaveType.value}
             items={getOfficeYearns()}
-            placeholder="Select Leave ype"
-            setValue={() => {}}
+            placeholder="Select Leave type"
+            setValue={(value: any) => onChange('leaveType', value)}
             zIndex={1000}
             handleOutsideMargin={handleOutsideMargin}
             label="Leave Types"
             isMarginOutside
+            error={errors.leaveType}
           />
           <View style={{ marginTop: isMargin ? -200 : 0 }}>
             <MyText style={styles.labels}>Leave Reason</MyText>
             <TextInputEl
               placeholder="Enter Leave Reason"
-              viewStyles={{ height: 120, backgroundColor: 'white', alignItems: 'flex-start' }}
-              onChangeText={handleChangeText}
-              value={leaveReason}
+              viewStyles={{
+                height: 120,
+                alignItems: 'flex-start',
+                backgroundColor: colors.lighterBackground,
+              }}
+              onChangeText={(value: any) => onChange('leaveReason', value)}
+              value={values.leaveReason.value}
               multiline={true}
+              error={errors.leaveReason}
             />
             <MyText
               style={{
@@ -66,15 +89,15 @@ const AddLeave = (props: Props) => {
               Leave Dates
             </MyText>
             <LeaveCalendar setDateSelected={setDateSelected} dateSelected={dateSelected} />
-            <View style={{ flexDirection: 'row', gap: 10, marginTop: 10 }}>
+            <View style={styles.buttons}>
               <ButtonEl
-                title="Reset"
-                onPress={handleEdit}
+                title="RESET"
+                onPress={() => clearValues()}
                 btnWidth="49%"
                 btnTextColor="white"
                 styles={{ backgroundColor: '#ff4d4f' }}
               />
-              <ButtonEl title="Apply" onPress={handleEdit} btnWidth={'49%'} btnTextColor="white" />
+              <ButtonEl title="APPLY" onPress={handleEdit} btnWidth={'49%'} btnTextColor="white" />
             </View>
           </View>
         </View>
@@ -98,5 +121,10 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     marginTop: 10,
     letterSpacing: 0.2,
+  },
+  buttons: {
+    flexDirection: 'row',
+    gap: 10,
+    marginTop: 20,
   },
 })

@@ -1,3 +1,4 @@
+import { useTheme } from '@react-navigation/native'
 import MyText from 'components/elements/MyText'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
@@ -11,8 +12,9 @@ type Props = {
 }
 
 const DayEvent = ({ month, year, date, day, eventData }: Props) => {
+  const { colors } = useTheme()
   return (
-    <View style={styles.container}>
+    <View style={{ ...styles.container, backgroundColor: colors.lighterBackground }}>
       <View style={{ flex: 1 }}>
         <MyText style={styles.monthYear}>
           {month} {year}
@@ -34,7 +36,6 @@ export default DayEvent
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    backgroundColor: 'white',
     marginTop: 2,
     marginHorizontal: 5,
     height: 150,

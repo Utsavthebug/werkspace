@@ -1,23 +1,30 @@
 import { Pressable, StyleSheet, Text, View, Image } from 'react-native'
 import React from 'react'
-import { NavigationProp, useNavigation } from '@react-navigation/native'
-import { DashboardRoutes } from 'constants/routes'
-import { CoWorkerData } from 'screens/dashboard/coworkers'
+import { NavigationProp, useNavigation, useTheme } from '@react-navigation/native'
+import { CoWorkersRoute } from 'constants/routes'
+import { CoWorkerData } from 'screens/coworkers'
+import MyText from '../MyText'
+import Avatar from '../Avatar'
 
 const CoWorker = ({ item }: { item: CoWorkerData }) => {
   const navigation: NavigationProp<any> = useNavigation()
+  const { colors } = useTheme()
   return (
     <Pressable
-      style={({ pressed }) => [styles.main, pressed && styles.pressed]}
-      onPress={() => navigation.navigate(DashboardRoutes.CoWorkerDetail, { user: item })}
+      style={({ pressed }) => [
+        styles.main,
+        { backgroundColor: colors.lighterBackground },
+        pressed && styles.pressed,
+      ]}
+      onPress={() => navigation.navigate(CoWorkersRoute.CoWorkerDetails, { user: item })}
     >
       <View style={styles.body}>
-        <View style={styles.circle}>
-          <Image source={{ uri: item.profile }} style={styles.image} />
+        <View style={[styles.circle, { backgroundColor: colors.avatarBg }]}>
+          <Avatar image={item.profile} imageStyles={styles.image} name={item.name} />
         </View>
         <View style={styles.details}>
-          <Text style={styles.title}>{item.name}</Text>
-          <Text style={styles.date}>{item.position}</Text>
+          <MyText style={styles.title}>{item.name}</MyText>
+          <MyText style={styles.date}>{item.position}</MyText>
         </View>
       </View>
     </Pressable>
@@ -31,7 +38,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingRight: 24,
     marginVertical: 5,
-    backgroundColor: '#fff',
     padding: 10,
     marginHorizontal: 14,
   },
@@ -44,7 +50,6 @@ const styles = StyleSheet.create({
     paddingTop: 4,
   },
   circle: {
-    backgroundColor: 'rgba(66, 66, 67, 0.11)',
     width: 50,
     height: 50,
     borderRadius: 25,

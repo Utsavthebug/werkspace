@@ -51,6 +51,8 @@ import MinusIcon from 'assets/svgs/Minus.svg'
 import ClockPunchIn from 'assets/svgs/ClockPunchIn.svg'
 import ClockPunchOut from 'assets/svgs/ClockPunchOut.svg'
 import ClockWorkingHour from 'assets/svgs/ClockWorkingHour.svg'
+import ThreeDotOptions from 'assets/svgs/ThreeDot.svg'
+import Close from 'assets/svgs/Close.svg'
 
 interface IIconProps {
   size?: number
@@ -70,7 +72,7 @@ const defaultProps = {
   width: 20,
   height: 20,
   color: defaultIconColor,
-  isFil: false,
+  isFill: false,
   fill: defaultIconFillColor,
   isStroke: false,
   stroke: '#05A9C5',
@@ -87,6 +89,8 @@ const Icon: React.FunctionComponent<IIconProps> = (props) => {
         return Calendar
       case 'folder':
         return Folder
+      case 'close':
+        return Close
       case 'log':
         return Log
       case 'leave':
@@ -175,6 +179,8 @@ const Icon: React.FunctionComponent<IIconProps> = (props) => {
         return ClockPunchOut
       case 'workingHourClock':
         return ClockWorkingHour
+      case 'dotOptions':
+        return ThreeDotOptions
       default:
         return null
     }

@@ -17,8 +17,8 @@ const ImageAndDetails = ({ item }: { item: ItemProps }) => {
   return (
     <Pressable style={[styles.main, { backgroundColor: colors.card }]}>
       <View style={styles.body}>
-        <View>
-          <Image source={{ uri: item.image }} style={{ width: 70, height: 70 }} />
+        <View style={styles.square}>
+          <Image source={{ uri: item.image }} style={{ width: 70, height: 66, borderRadius: 4 }} />
         </View>
         <View style={styles.details}>
           <MyText style={styles.date}>{item.date}</MyText>
@@ -58,9 +58,20 @@ const styles = StyleSheet.create({
   body: {
     flexDirection: 'row',
     gap: 8,
+    height: 65,
+  },
+  square: {
+    backgroundColor: 'rgba(66, 66, 67, 0.11)',
+    width: 70,
+    height: 65,
+    borderRadius: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: -2,
   },
   details: {
     paddingTop: 8,
+    paddingBottom: 0,
   },
   title: {
     fontWeight: '500',
@@ -72,7 +83,7 @@ const styles = StyleSheet.create({
     color: '#606060',
   },
   remaining: {
-    marginTop: 6,
+    marginTop: 2,
     fontSize: 12,
     color: '#05A9C5',
     fontStyle: 'italic',

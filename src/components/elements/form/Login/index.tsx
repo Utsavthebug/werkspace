@@ -1,5 +1,5 @@
-import { StyleSheet, View, Alert, Pressable } from 'react-native'
-import { NavigationProp } from '@react-navigation/native'
+import { NavigationProp, useTheme } from '@react-navigation/native'
+import { StyleSheet, View, Alert, Pressable, Text } from 'react-native'
 import React, { useState } from 'react'
 import FingerPrint from 'assets/svgs/FingerPrint.svg'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -13,58 +13,62 @@ import { useAppDispatch } from 'redux/hook'
 import { setToken } from 'redux/reducer/initialLoadingSlice'
 import MyText from 'components/elements/MyText'
 import Icon from 'components/elements/Icon'
+import useForm from 'hooks/useForm'
+
+const initialState = {
+  username: { isRequired: true, value: '' },
+  password: { isRequired: true, value: '' },
+}
 
 const LoginForm = ({ navigation }: { navigation: NavigationProp<any, any> }) => {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const { colors } = useTheme()
   const [checkboxSelcted, setCheckboxSelected] = useState(false)
   const [hidePassword, setHidePassword] = useState(true)
   const dispatch = useAppDispatch()
 
-  const [credentialsInvalid, setCredentialsInvalid] = useState({
-    username: false,
-    password: false,
-  })
-
-  const updateInputHandler = (inputType: string, enteredValue: string) => {
-    switch (inputType) {
-      case 'email':
-        setUsername(enteredValue)
-        break
-      case 'password':
-        setPassword(enteredValue)
-        break
+  const { onSubmit, onChange, onBlur, values, errors, clearValues, isSubmitting } = useForm(
+    initialState,
+    undefined,
+    () => {
+      console.log(values)
     }
-  }
+  )
 
   const showIcon = (
     <Pressable onPress={() => setHidePassword(true)}>
-      <Icon width="18" height="30" name="ShowPassword" />
+      <Icon width="18" height="30" name="ShowPassword" isFill fill={colors.text} />
     </Pressable>
   )
   const notShowIcon = (
     <Pressable onPress={() => setHidePassword(false)}>
-      <Icon width="20" height="30" name="HidePassword" />
+      <Icon width="20" height="30" name="HidePassword" isFill fill={colors.text} />
     </Pressable>
   )
 
   const passwordIcon = hidePassword ? notShowIcon : showIcon
 
   const formSubmitHandler = async () => {
-    let enteredUsername = username.trim()
-    let enteredPassword = password.trim()
+    let enteredUsername = values.username.trim()
+    let enteredPassword = values.password.trim()
+    await AsyncStorage.setItem('token', 'true')
+    dispatch(setToken('true'))
+
+    navigation.replace('NestedNav', { screen: DashboardRoutes.Dashboard })
+
+    return
+    onSubmit()
 
     const usernameIsValid = enteredUsername.includes('@')
     const passwordsIsValid = enteredPassword.length >= 4
 
-    if (!usernameIsValid || !passwordsIsValid) {
-      Alert.alert('Invalid input', 'Please check your entered credentials.')
-      setCredentialsInvalid({
-        username: !usernameIsValid,
-        password: !passwordsIsValid,
-      })
-      return
-    }
+    // if (!usernameIsValid || !passwordsIsValid) {
+    //   Alert.alert('Invalid input', 'Please check your entered credentials.')
+    //   setCredentialsInvalid({
+    //     username: !usernameIsValid,
+    //     password: !passwordsIsValid,
+    //   })
+    //   return
+    // }
 
     if (
       enteredUsername.toLowerCase() === 'bob@gmail.com' &&
@@ -87,23 +91,25 @@ const LoginForm = ({ navigation }: { navigation: NavigationProp<any, any> }) => 
       <TextInputEl
         placeholder="Username"
         keyboardType="email-address"
-        onChangeText={(text) => updateInputHandler('email', text)}
-        value={username}
+        onChangeText={(text) => onChange('username', text)}
+        value={values.username.value}
         hasIcon={true}
         iconToLeft={true}
-        icon={<Icon name="User" width={15} height={40} />}
+        icon={<Icon name="User" width={15} height={40} isFill fill={colors.text} />}
         viewStyles={styles.inputs}
+        error={errors.username}
       />
       <TextInputEl
         placeholder="Password"
         secure={hidePassword}
-        onChangeText={(text) => updateInputHandler('password', text)}
-        value={password}
+        onChangeText={(text) => onChange('password', text)}
+        value={values.password.value}
         hasIcon={true}
-        icon={<Icon name="Lock" width={15} height={40} />}
+        icon={<Icon name="Lock" width={15} height={40} isFill fill={colors.text} />}
         iconToRight={true}
         rightIcon={passwordIcon}
         viewStyles={styles.inputs}
+        error={errors.password}
       />
       <View style={styles.checkboxContainer}>
         <CheckBox
@@ -129,9 +135,10 @@ const LoginForm = ({ navigation }: { navigation: NavigationProp<any, any> }) => 
         </View>
       </View>
       <View style={styles.footer}>
-        <MyText style={styles.normalText}>
-          Forgot Password?<MyText style={styles.resetLink}> Reset Now</MyText>
-        </MyText>
+        <MyText style={styles.normalText}>Forgot Password?</MyText>
+        <Pressable onPress={() => navigation.navigate(NavigationRoutes.ResetPasswordForm)}>
+          <MyText style={styles.resetLink}> Reset Now</MyText>
+        </Pressable>
       </View>
     </View>
   )
@@ -177,6 +184,7 @@ const styles = StyleSheet.create({
   footer: {
     alignItems: 'center',
     justifyContent: 'center',
+    flexDirection: 'row',
   },
   inputs: {
     borderRadius: 18,

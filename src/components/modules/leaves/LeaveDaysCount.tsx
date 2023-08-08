@@ -44,7 +44,7 @@ const LeaveDaysCount = (props: Props) => {
         <View
           style={{
             ...styles.container,
-            backgroundColor: 'rgba(253, 126, 20, 0.1)',
+            backgroundColor: '#feedf1',
             marginLeft: 10,
           }}
         >
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     backgroundColor: '#feedf1',
-    borderRadius: 20,
+    borderRadius: 10,
     borderWidth: 1,
     borderColor: '#feedf1',
     height: 80,

@@ -1,36 +1,56 @@
-import { StyleSheet, View } from 'react-native'
-import React from 'react'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { ProjectRoutes } from 'constants/routes'
-import BackButton from 'components/elements/BackButton'
 import { NavigationProp } from '@react-navigation/native'
-import ProjectScreen from './ProjectScreen'
-import ProjectDetailsScreen from './ProjectDetailsScreen'
-import CommonScreenHeader from 'components/elements/CommonScreenHeader'
+import React, { useState } from 'react'
+import { StyleSheet, View } from 'react-native'
+import SearchProject from 'components/modules/projects/SearchProject'
+import ProjectList from 'components/modules/projects/ProjectList'
+import ProjectModal from 'components/modules/projects/ProjectModal'
+import KeyboardAvoidingComponent from 'components/elements/KeyboardDismissal'
 
-const Stack = createNativeStackNavigator()
+type Props = {
+  navigation: NavigationProp<any, any>
+}
 
-const ProjectsStackScreen = ({ navigation }: { navigation: NavigationProp<any, any> }) => {
+const ProjectScreen = ({ navigation }: Props) => {
+  const [show, setShow] = useState<boolean>(false)
+
+  const handleModalShow = () => setShow((prev) => !prev)
+  const [value, setValue] = useState<string | undefined>(undefined)
   return (
-    <Stack.Navigator screenOptions={{}}>
-      <Stack.Screen
-        name={ProjectRoutes.Projects}
-        component={ProjectScreen}
-        options={{
-          header: () => <CommonScreenHeader title="Projects" navigation={navigation} />,
-        }}
-      />
-      <Stack.Screen
-        name={ProjectRoutes.ProjectDetails}
-        component={ProjectDetailsScreen}
-        // options={{
-        //   headerLeft: (props) => <BackButton navigation={navigation} />,
-        // }}
-      />
-    </Stack.Navigator>
+    <KeyboardAvoidingComponent>
+      <View>
+        <SearchProject value={value} setValue={setValue} handleModalShow={handleModalShow} />
+        <ProjectList />
+        <ProjectModal show={show} handleModalShow={handleModalShow} />
+      </View>
+    </KeyboardAvoidingComponent>
   )
 }
 
-export default ProjectsStackScreen
+export default ProjectScreen
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    filter: 'blur(50px)',
+  },
+  innerContainer: {
+    flex: 1,
+    filter: 'blur(50px)',
+  },
+  inputField: {
+    borderRadius: 20,
+    flex: 8,
+    padding: 10,
+    borderColor: 'grey',
+    borderWidth: 0.3,
+  },
+  row: {
+    flexDirection: 'row',
+    padding: 20,
+    justifyContent: 'space-between',
+  },
+  option: {
+    marginLeft: 10,
+    marginTop: 15,
+  },
+})

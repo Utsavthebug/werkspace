@@ -178,7 +178,7 @@ const CalendarScreen = ({ navigation }: any) => {
 
   const handleRender = ({ item }: any) => {
     return (
-      <View style={styles.renderedItem}>
+      <View style={[styles.renderedItem, { backgroundColor: colors.lighterBackground }]}>
         <View style={styles.renderChildOne}>
           <MyText fontStyle="bold">
             {getSpecificDate(selectedDate, 'MMMM')} {getSpecificDate(selectedDate, 'DD')}
@@ -186,10 +186,10 @@ const CalendarScreen = ({ navigation }: any) => {
           <MyText>{getSpecificDate(selectedDate, 'dddd')}</MyText>
         </View>
         <View style={styles.renderChildTwo}>
-          <Text>{item.title}</Text>
-          <Text>{item.id}</Text>
-          <Text>{item.id}</Text>
-          <Text>{item.id}</Text>
+          <MyText>{item.title}</MyText>
+          <MyText>{item.id}</MyText>
+          <MyText>{item.id}</MyText>
+          <MyText>{item.id}</MyText>
         </View>
         <View style={styles.renderChildThree}>
           <MyText>
@@ -216,7 +216,9 @@ const CalendarScreen = ({ navigation }: any) => {
               date={getSpecificDate(dateSelected, 'DD')}
             />
             <View>
-              <MyText style={styles.monthlyEvent}>Month Events</MyText>
+              <MyText style={[styles.monthlyEvent, { backgroundColor: colors.lighterBackground }]}>
+                Month Events
+              </MyText>
             </View>
           </View>
         }
@@ -235,7 +237,6 @@ const styles = StyleSheet.create({
   renderedItem: {
     borderBottomColor: 'rgba(0,0,0,0.1)',
     borderBottomWidth: 1,
-    backgroundColor: 'white',
     paddingVertical: 10,
     flexDirection: 'row',
   },

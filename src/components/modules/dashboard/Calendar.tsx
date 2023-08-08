@@ -103,9 +103,9 @@ const DashboardCalendar = ({
                 )
               }
               hideArrows={hideArrows}
-              disabledByDefault={disabledByDefault}
-              disableAllTouchEventsForDisabledDays
-              disabledDaysIndexes={[1, 2, 3, 4, 5]}
+              // disabledByDefault={disabledByDefault}
+              // disableAllTouchEventsForDisabledDays
+              // disabledDaysIndexes={[1, 2, 3, 4, 5]}
               onDayPress={(e) => handleKeyPress(e)}
               style={{ borderRadius: 10 }}
               theme={{
@@ -138,6 +138,9 @@ const DashboardCalendar = ({
                     color: 'red',
                     fontWeight: 'bold',
                   },
+                  dayHeader: {
+                    fontSize: 12,
+                  },
                   header: {
                     // backgroundColor: colors.background,
                     flexDirection: 'row',
@@ -151,8 +154,24 @@ const DashboardCalendar = ({
                     alignItems: 'center',
                   },
                   monthText: {
-                    fontSize: 10,
+                    fontSize: 2,
                     margin: 5,
+                  },
+                },
+                'stylesheet.day.basic': {
+                  base: {
+                    width: 15,
+                    height: 15,
+                    alignItems: 'center',
+                  },
+                  text: {
+                    fontSize: 12,
+                  },
+                  selected: {
+                    backgroundColor: '#05A9C5',
+                    borderRadius: 11,
+                    width: 22,
+                    height: 22,
                   },
                 },
 

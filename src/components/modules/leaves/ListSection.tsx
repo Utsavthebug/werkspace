@@ -1,14 +1,16 @@
 import React from 'react'
 import { View, SectionList, StyleSheet, Pressable } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useTheme } from '@react-navigation/native'
 import { Feather } from '@expo/vector-icons'
 import { LeaveRoutes } from 'constants/routes'
 import MyText from 'components/elements/MyText'
 import { Colors } from 'constants/colors'
 import Icon from 'components/elements/Icon'
+import { backgroundColor } from 'styles/colors'
 
 const ListSection = ({ list }: { list: any }) => {
   const navigation = useNavigation<any>()
+  const { colors } = useTheme()
 
   const handleRender = ({ item }: { item: any }) => {
     const statusColor = item?.status === 'Approved' ? '#5fbe64' : '#f74f75'
@@ -21,6 +23,7 @@ const ListSection = ({ list }: { list: any }) => {
         }}
         style={({ pressed }) => [
           styles.container,
+          { backgroundColor: colors.lighterBackground },
           pressed && {
             backgroundColor: Colors.pressEffect,
           },
@@ -30,7 +33,9 @@ const ListSection = ({ list }: { list: any }) => {
           <MyText style={styles.halfDay}>{item.day} Day Application</MyText>
           <View style={{ ...styles.leaveStatusContainer, backgroundColor: backgroundStatusColor }}>
             <Feather name="clock" size={13} color={statusColor} />
-            <MyText style={{ ...styles.leaveStatus, color: statusColor }}>{item.status}</MyText>
+            <MyText style={{ ...styles.leaveStatus, color: statusColor }} hasCustomColor>
+              {item.status}
+            </MyText>
           </View>
         </View>
         <MyText style={styles.leaveDate}>{item.date}</MyText>
@@ -45,6 +50,8 @@ const ListSection = ({ list }: { list: any }) => {
               width={18}
               height={16}
               containerStyles={styles.arrowIcon}
+              isFill
+              fill={colors.text}
             />
           </View>
         </View>
@@ -54,7 +61,7 @@ const ListSection = ({ list }: { list: any }) => {
 
   const handleSectionHeader = ({ section }: { section: any }) => (
     <View style={styles.sectionHeader}>
-      <Icon name="smallCalendar" width={18} height={18} />
+      <Icon name="smallCalendar" width={18} height={18} isFill fill={colors.text} />
       <MyText style={styles.title}>{section.title}</MyText>
     </View>
   )
@@ -76,13 +83,12 @@ export default ListSection
 const styles = StyleSheet.create({
   container: {
     marginVertical: 8,
-    marginHorizontal: 2,
+    marginHorizontal: 1,
     padding: 20,
     height: 120,
     borderRadius: 10,
-    shadowColor: 'black',
+    shadowColor: ' rgba(0, 0, 0, 0.5)',
     elevation: 5,
-    backgroundColor: 'white',
     position: 'relative',
   },
   dayApplication: {

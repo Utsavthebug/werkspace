@@ -1,15 +1,29 @@
 import * as React from 'react'
-import { StyleSheet, View, SafeAreaView } from 'react-native'
+import { StyleSheet, View, SafeAreaView, ScrollView } from 'react-native'
 import MyText from 'components/elements/MyText'
 import ButtonEl from 'components/elements/Button'
 import PasswordInput from 'components/elements/form/PasswordInput'
 import KeyboardAvoidingComponent from 'components/elements/KeyboardDismissal'
+import useForm from 'hooks/useForm'
+
+const initialState = {
+  password: { isRequired: true, value: '' },
+  confirmPassword: { isRequired: true, value: '' },
+}
 
 const NewpasswordScreen = () => {
-  const [password, SetPassword] = React.useState<string>('')
-  const [confirmPassword, setConfirmPassword] = React.useState<string>('')
+  // const [password, SetPassword] = React.useState<string>('')
+  // const [confirmPassword, setConfirmPassword] = React.useState<string>('')
+
+  const { onSubmit, onChange, onBlur, values, errors, clearValues, isSubmitting } = useForm(
+    initialState,
+    undefined,
+    () => {
+      console.log(values)
+    }
+  )
   return (
-    <KeyboardAvoidingComponent>
+    <ScrollView>
       <SafeAreaView>
         <View style={passwordStyle.container}>
           <MyText style={{ textAlign: 'center', fontWeight: '800', fontSize: 26 }}>
@@ -17,7 +31,6 @@ const NewpasswordScreen = () => {
           </MyText>
 
           <MyText
-            hasCustomColor={true}
             style={{
               textAlign: 'center',
               marginTop: 15,
@@ -34,19 +47,24 @@ const NewpasswordScreen = () => {
             <View>
               <MyText style={passwordStyle.formText}>New Password</MyText>
               <PasswordInput
-                onChangeText={SetPassword}
+                onChangeText={(value) => onChange('password', value)}
                 placeholder="8 characters at least"
-                value={password}
+                value={values.password.value}
+                error={errors.password}
               />
             </View>
 
             <View>
               <MyText style={passwordStyle.formText}>Confirm Password</MyText>
-              <PasswordInput onChangeText={setConfirmPassword} value={confirmPassword} />
+              <PasswordInput
+                onChangeText={(value) => onChange('confirmPassword', value)}
+                value={values.confirmPassword.value}
+                error={errors.confirmPassword}
+              />
             </View>
 
             <ButtonEl
-              onPress={() => {}}
+              onPress={() => onSubmit()}
               title="RESET PASSWORD"
               styles={passwordStyle.buttonStyle}
               btnTextColor={'#ffffff'}
@@ -58,7 +76,7 @@ const NewpasswordScreen = () => {
           </View>
         </View>
       </SafeAreaView>
-    </KeyboardAvoidingComponent>
+    </ScrollView>
   )
 }
 
@@ -69,6 +87,7 @@ const passwordStyle = StyleSheet.create({
     marginRight: 'auto',
     width: '90%',
     display: 'flex',
+    flex: 1,
   },
   formText: {
     fontWeight: '700',

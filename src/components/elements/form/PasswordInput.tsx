@@ -9,6 +9,7 @@ interface PasswordInputtype {
   value?: string
   onChangeText?: (value: string) => void
   placeholder?: string
+  error?: string
 }
 
 interface IPressComponent {
@@ -36,6 +37,7 @@ const PasswordInput: React.FunctionComponent<PasswordInputtype> = (props) => {
       hasIcon
       iconToLeft={false}
       onChangeText={props.onChangeText}
+      error={props.error}
       icon={
         showPassword ? (
           <PressComponent onPress={() => setShowPassword((prev) => !prev)}>

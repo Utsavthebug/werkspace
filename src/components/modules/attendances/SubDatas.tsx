@@ -2,6 +2,8 @@ import MyText from 'components/elements/MyText'
 import React from 'react'
 import { Pressable, StyleSheet, View } from 'react-native'
 import { AntDesign } from '@expo/vector-icons'
+import { useTheme } from '@react-navigation/native'
+import Icon from 'components/elements/Icon'
 
 type Props = {
   Date?: string
@@ -18,6 +20,7 @@ type Itemprops = Props & {
 }
 
 const SubDatas = ({ item, handleDetailMulti }: { item: Itemprops; handleDetailMulti: any }) => {
+  const { colors } = useTheme()
   return (
     <View style={{ flexDirection: 'row' }}>
       <View style={{ width: '21%' }}>
@@ -27,7 +30,7 @@ const SubDatas = ({ item, handleDetailMulti }: { item: Itemprops; handleDetailMu
         style={{
           width: '100%',
           marginTop: 0,
-          backgroundColor: '#f8f8f8',
+          backgroundColor: colors.attendanceSubDatas,
           marginVertical: 12,
         }}
       >
@@ -45,7 +48,7 @@ const SubDatas = ({ item, handleDetailMulti }: { item: Itemprops; handleDetailMu
                 {item.OfficeHour || '--'}
               </MyText>
               <Pressable onPress={() => handleDetailMulti(d)} style={styles.pressableStyle}>
-                <AntDesign name="right" size={12} color="black" />
+                <Icon name="KeyboardRightArrow" width={8} isFill fill={colors.text} />
               </Pressable>
             </View>
           </View>

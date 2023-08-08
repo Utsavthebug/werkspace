@@ -7,7 +7,9 @@ type Props = {}
 const AttendanceHoliday = (props: Props) => {
   return (
     <View style={styles.weekendContainer}>
-      <MyText style={styles.weekendDate}>WEEKEND: 20 SATURDAY & 21 SUNDAY</MyText>
+      <MyText style={styles.weekendDate} hasCustomColor>
+        WEEKEND: 20 SATURDAY & 21 SUNDAY
+      </MyText>
     </View>
   )
 }
@@ -21,7 +23,7 @@ const styles = StyleSheet.create({
   },
   weekendDate: {
     color: '#f74f75',
-    fontSize: 14,
+    fontSize: 10,
     fontWeight: 'bold',
     textAlign: 'center',
     backgroundColor: '#feedf1',

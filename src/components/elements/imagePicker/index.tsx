@@ -4,6 +4,7 @@ import * as ImagePicker from 'expo-image-picker'
 import { FontAwesome } from '@expo/vector-icons'
 import { AntDesign } from '@expo/vector-icons'
 import MyText from '../MyText'
+import { useTheme } from '@react-navigation/native'
 
 interface ElimagePicker {
   handleClick: any
@@ -12,6 +13,8 @@ interface ElimagePicker {
 }
 
 export default function ImagePickerComponent({ handleClick, image, setImage }: ElimagePicker) {
+  const { colors } = useTheme()
+
   return (
     <View
       style={{
@@ -19,7 +22,10 @@ export default function ImagePickerComponent({ handleClick, image, setImage }: E
         marginTop: 10,
       }}
     >
-      <Pressable style={styles.container} onPress={handleClick}>
+      <Pressable
+        style={[styles.container, { backgroundColor: colors.background }]}
+        onPress={handleClick}
+      >
         <FontAwesome name="image" size={44} color="#05A9C5" />
         <MyText hasCustomColor={true} style={{ color: '#606060', fontWeight: '600', marginTop: 5 }}>
           Upload a Picture

@@ -1,3 +1,4 @@
+import { useTheme } from '@react-navigation/native'
 import ListSection from 'components/modules/leaves/ListSection'
 import React from 'react'
 import { View, Text } from 'react-native'
@@ -111,8 +112,9 @@ const DATA = [
   },
 ]
 const AllLeave = (props: Props) => {
+  const { colors } = useTheme()
   return (
-    <View style={{ backgroundColor: 'white', flex: 1, paddingVertical: 5 }}>
+    <View style={{ flex: 1, paddingVertical: 5, backgroundColor: colors.secondBackground }}>
       <ListSection list={DATA} />
     </View>
   )

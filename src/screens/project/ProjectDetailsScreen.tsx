@@ -1,8 +1,7 @@
 import React from 'react'
-import { Linking, StyleSheet, Text, View } from 'react-native'
+import { Linking, ScrollView, StyleSheet, Text, View } from 'react-native'
 import MyText from 'components/elements/MyText'
 import { NavigationProp } from '@react-navigation/native'
-import SwitchEl from 'components/elements/form/Switch'
 import DetailsElement from 'components/elements/DetailsElement'
 import SwitchSelect from 'components/elements/SwitchSelect'
 import { Colors } from 'constants/colors'
@@ -14,10 +13,56 @@ interface DetailProps {
 
 const ProjectDetailsScreen = ({ route, navigation }: DetailProps) => {
   const data = route.params.item
-  console.log('data', data)
+
+  const projectDetailKeys = [
+    { name: 'projectName', title: 'Project Name' },
+    { name: 'priority', title: 'Priority' },
+    { name: 'path', title: 'Path' },
+    { name: 'estimatedHours', title: 'Estimated Hours' },
+    { name: 'startDate', title: 'Start Date' },
+    { name: 'endDate', title: 'End Date' },
+    { name: 'type', title: 'Type' },
+    { name: 'status', title: 'Status' },
+    { name: 'tags', title: 'Tags' },
+    { name: 'client', title: 'Client' },
+    { name: 'developers', title: 'Developers' },
+    { name: 'designers', title: 'Designers' },
+    { name: 'qa', title: 'QA' },
+    { name: 'devops', title: 'DevOps' },
+  ]
+
+  const projectDetailValues = {
+    projectName: data?.name,
+    priority: data?.priority,
+    path: data?.path,
+    estimatedHours: data?.estimatedHours,
+    startDate: data?.startDate,
+    endDate: data?.endDate,
+    type: data?.type,
+    status: data?.Status,
+    tags: data?.tags,
+    client: data?.client,
+    developers: data?.developers,
+    designers: data?.designers,
+    qa: data?.qa,
+    devOps: data?.devOps,
+  }
 
   return (
-    <>
+    // <ScrollView>
+    //   <CommonDetails
+    //     detailTitle="Project Details"
+    //     titles={projectDetailKeys}
+    //     fields={projectDetailValues}
+    //   />
+    //   <View style={[styles.container, styles.stagingStyles]}>
+    //     <MyText style={styles.title}>Staging URL</MyText>
+    //     <Text style={styles.linkStyles} onPress={() => Linking.openURL(data?.staging)}>
+    //       {data?.staging ?? 'Nothing right now'}
+    //     </Text>
+    //   </View>
+    // </ScrollView>
+    <ScrollView>
       <MyText style={styles.heading}>Project Details</MyText>
       <View style={styles.main}>
         <DetailsElement title="Project Name" value={data?.name} />
@@ -44,7 +89,7 @@ const ProjectDetailsScreen = ({ route, navigation }: DetailProps) => {
           </Text>
         </View>
       </View>
-    </>
+    </ScrollView>
   )
 }
 
@@ -52,7 +97,6 @@ export default ProjectDetailsScreen
 
 const styles = StyleSheet.create({
   main: {
-    backgroundColor: 'white',
     borderColor: 'black',
     padding: 20,
     margin: 15,

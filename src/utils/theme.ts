@@ -23,6 +23,10 @@ export const MyTheme = {
     avatarBg: 'rgba(66, 66, 67, 0.11)',
     lighterBackground: '#fff',
     placeholderTextColor: '#747688',
+    otpFocused: 'black',
+    attendanceSubDatas: '#f8f8f8',
+    secondBackground: '#ffffff',
+    leaveTabBar: '#F5F5F5',
   },
 }
 
@@ -34,5 +38,9 @@ export const MyDarkTheme = {
     header: '#222222',
     lighterBackground: 'rgba(43, 43, 43, 1)',
     placeholderTextColor: '#fff',
+    otpFocused: '#fff',
+    attendanceSubDatas: 'rgba(43, 43, 43, 1)',
+    secondBackground: '#000000',
+    leaveTabBar: '#222222',
   },
 }

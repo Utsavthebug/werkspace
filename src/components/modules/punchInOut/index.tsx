@@ -54,11 +54,12 @@ export default PunchInoutButton
 
 const styles = StyleSheet.create({
   circle: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 24,
     alignItems: 'center',
     justifyContent: 'center',
-    position: 'absolute',
-    bottom: 24,
-    left: -6,
   },
   linearGradient: {
     alignItems: 'center',

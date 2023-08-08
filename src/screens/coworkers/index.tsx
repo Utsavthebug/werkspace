@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { FlatList, StyleSheet, Text, View } from 'react-native'
-import CoWorker from 'components/elements/pressables/CoWorker'
 import TextInputEl from 'components/elements/form/TextInput'
 import Icon from 'components/elements/Icon'
 import MyText from 'components/elements/MyText'
+import CoWorker from 'components/elements/pressables/CoWorker'
+import { useTheme } from '@react-navigation/native'
 
 export interface CoWorkerData {
   id: string
@@ -41,7 +42,6 @@ export const CoWorkersData = [
     id: '2',
     name: 'Kumar Sanu',
     position: 'WordPress Developer',
-    profile: 'https://images.credly.com/images/4756df28-8ac3-49ee-bb9b-aa9c9e3a3ea0/blob.png',
     role: 'Normal',
     officeStartTime: '9:00 AM',
     officeEndTime: '6:00 PM',
@@ -56,7 +56,6 @@ export const CoWorkersData = [
     id: '3',
     name: 'Ashis Chettri',
     position: 'Golang Developer',
-    profile: 'https://images.credly.com/images/4756df28-8ac3-49ee-bb9b-aa9c9e3a3ea0/blob.png',
     role: 'Normal',
     officeStartTime: '9:00 AM',
     officeEndTime: '6:00 PM',
@@ -508,6 +507,7 @@ const CoWorkersScreen = () => {
   const [searchedQuery, setSearchedQuery] = useState('')
   const [fetchedUsers, setFetchedUsers] = useState<CoWorkerData[]>([])
   const [users, setUsers] = useState<CoWorkerData[]>([])
+  const { colors } = useTheme()
 
   const searchHandler = (text: string) => {
     const filteredUsers = fetchedUsers.filter((user) =>
@@ -536,7 +536,7 @@ const CoWorkersScreen = () => {
             rightIcon={<Icon width={20} height={18} name="search" />}
             value={searchedQuery}
             onChangeText={(text) => searchHandler(text)}
-            viewStyles={styles.customInputStyles}
+            viewStyles={{ ...styles.customInputStyles, backgroundColor: colors.lighterBackground }}
           />
         }
       />
@@ -555,7 +555,6 @@ const styles = StyleSheet.create({
   customInputStyles: {
     paddingVertical: 4,
     fontSize: 14,
-    backgroundColor: '#fff',
     paddingHorizontal: 8,
     width: '94%',
     marginHorizontal: 10,

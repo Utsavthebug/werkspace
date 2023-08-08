@@ -17,12 +17,7 @@ const BirthdayWidget = ({ item }: { item: BirthdayProps }) => {
   return (
     <View style={styles.main}>
       <View style={styles.body}>
-        <View
-          style={[
-            styles.square,
-            { backgroundColor: item?.profile ? 'transparent' : 'rgba(66, 66, 67, 0.11)' },
-          ]}
-        >
+        <View style={[styles.square, { backgroundColor: colors.avatarBg }]}>
           <Avatar image={item?.profile} imageStyles={styles.imageStyle} name={item.title} />
         </View>
         <View style={styles.details}>
@@ -67,6 +62,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: 'center',
     justifyContent: 'center',
+    marginLeft: -2,
   },
   title: {
     fontWeight: '500',
@@ -84,8 +80,8 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
   },
   imageStyle: {
-    width: 45,
-    height: 45,
+    width: '100%',
+    height: 52,
     borderRadius: 5,
   },
 })

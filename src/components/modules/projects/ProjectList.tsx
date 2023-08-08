@@ -131,7 +131,7 @@ const ProjectList = (props: Props) => {
           <Text style={styles.renderTopText}>{item.client}</Text>
           <ButtonEl
             title="Log Time"
-            onPress={() => {}}
+            onPress={() => navigation.navigate(ProjectRoutes.ProjectLog, { item })}
             styles={{
               backgroundColor: 'transparent',
               borderColor: 'transparent',
@@ -144,13 +144,14 @@ const ProjectList = (props: Props) => {
             btnTextBold
             btnHeight={40}
             textDecorationLine="underline"
+            hasPressedEffect={false}
           />
         </View>
         <MyText style={styles.renderTitle} hasCustomColor fontStyle="extraBold">
           {item.name}
         </MyText>
         <View style={styles.detailProject}>
-          <View style={styles.sameWidth}>
+          <View style={styles.leftSideTitle}>
             <MyText style={styles.title} fontStyle="bold">
               Start Date:
             </MyText>
@@ -162,7 +163,9 @@ const ProjectList = (props: Props) => {
             </MyText>
             <MyText style={styles.value}>{item?.endDate ? item.endDate : 'N/A'}</MyText>
           </View>
-          <View style={styles.sameWidth}>
+        </View>
+        <View style={styles.detailProject}>
+          <View style={styles.leftSideTitle}>
             <MyText style={styles.title} fontStyle="bold">
               Project Type:
             </MyText>
@@ -188,6 +191,7 @@ const ProjectList = (props: Props) => {
         extraData={Math.random()}
         keyExtractor={(item: any) => item?.id}
         renderItem={handleRenderItem}
+        showsHorizontalScrollIndicator={false}
       />
     </View>
   )
@@ -196,15 +200,15 @@ const ProjectList = (props: Props) => {
 export default ProjectList
 
 const styles = StyleSheet.create({
-  containerHeight: { height: '84%' },
+  containerHeight: { height: '86%' },
   renderItem: {
     padding: 10,
-    paddingBottom: 0,
-    backgroundColor: 'white',
+    paddingLeft: 15,
     marginBottom: 10,
     marginHorizontal: 20,
     borderRadius: 10,
     elevation: 5,
+    shadowColor: '#F7F7F7',
   },
   renderTop: {
     flexDirection: 'row',
@@ -225,16 +229,22 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     fontWeight: '700',
   },
-  sameWidth: {
-    width: '50%',
+  leftSideTitle: {
+    width: '55%',
+    dolumnGap: 5,
     flexDirection: 'row',
-    marginTop: 5,
+  },
+  sameWidth: {
+    width: '45%',
+    dolumnGap: 5,
+    flexDirection: 'row',
   },
   value: {
     marginLeft: 5,
     fontSize: 11,
     alignSelf: 'center',
     color: 'rgba(96, 96, 96, 0.8)',
+    paddingRight: 5,
   },
   title: {
     color: '#424243',
@@ -244,7 +254,8 @@ const styles = StyleSheet.create({
 
   detailProject: {
     flexDirection: 'row',
-    flexWrap: 'wrap',
-    marginBottom: 20,
+    // flexWrap: 'wrap',
+    marginBottom: 5,
+    columnGap: 5,
   },
 })

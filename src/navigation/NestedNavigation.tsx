@@ -1,30 +1,27 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
-import DashboardStackScreen from 'screens/dashboard'
+import { StyleSheet } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-// import ProjectsStackScreen from 'screens/Project'
-// import CustomIcon from '@app/components/UIComponents/CustomIcon'
-// import PunchInOutButton from '@app/components/UIComponents/PunchInOut'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { NavigationRoutes } from 'constants/routes'
+import { DashboardRoutes, NavigationRoutes } from 'constants/routes'
 import { LocaleConfig } from 'react-native-calendars'
-import CustomIcon from 'components/elements/CustomIcon'
-import ProjectsStackScreen from 'screens/project'
-import LogtimeStackScreen from 'screens/logTime'
-import PunchStackScreen from 'screens/punchInOut'
-import PunchInoutButton from 'components/modules/punchInOut'
-import LeaveStackScreen from 'screens/leaves'
-import AttendanceStackScreen from 'screens/attendance'
 import Icon from 'components/elements/Icon'
-import Animated, { FadeInUp, FadeOutDown, Layout } from 'react-native-reanimated'
-
-// import LogtimeStackScreen from '@app/screens/LogTime'
-// import LeaveStackScreen from '@app/screens/Leaves'
-// import AttendanceStackScreen from '@app/screens/Attendance'
-// import PunchStackScreen from '@app/screens/PunchInOut'
+import { NavigationProp, useTheme } from '@react-navigation/native'
+import DashboardTabNavigation from './dashboard'
+import { createStackNavigator } from '@react-navigation/stack'
+import { handleScreenFade } from 'utils'
+import NotificationsScreen from 'screens/dashboard/notices/NotificationsScreen'
+import CommonScreenHeader from 'components/elements/CommonScreenHeader'
+import NoticeBoardScreen from 'screens/dashboard/notices/NoticeBoardScreen'
+import NoticeDetails from 'screens/dashboard/notices/Details'
+import CalendarScreen from 'screens/dashboard/CalendarScreen'
+import EditDetail from 'screens/editDetail'
+import ProfileScreen from 'screens/dashboard/profile'
+import ButtonEl from 'components/elements/Button'
+import ResetForm from 'screens/resetForm'
+import ResetPassword from 'screens/resetPassword'
+import NewpasswordScreen from 'screens/newPassword'
 
 const Tab = createBottomTabNavigator()
-const Stack = createNativeStackNavigator()
+const Stack = createStackNavigator()
 
 //OverWriting Names of the days in calendar
 LocaleConfig.locales['fr'] = {
@@ -61,118 +58,91 @@ LocaleConfig.locales['fr'] = {
 }
 LocaleConfig.defaultLocale = 'fr'
 
-export const tabBarStyles = {
-  height: 80,
-  borderColor: 'transparent',
-  borderTopWidth: 0,
-  backgroundColor: 'transparent',
-  position: 'absolute',
-  left: 0,
-  right: 0,
-  bottom: 0,
-  elevation: 0,
-}
-
-export const TabNavigator = () => {
+export const TabNavigator = ({
+  navigation,
+  route,
+}: {
+  navigation: NavigationProp<any, any>
+  route: any
+}) => {
+  const { colors } = useTheme()
   return (
-    <Tab.Navigator
-      initialRouteName={NavigationRoutes.Dashboard}
-      screenOptions={{
-        tabBarShowLabel: false,
-        headerShown: false,
-        tabBarBackground: () => (
-          <Icon
-            name="tabBackground"
-            width={500}
-            height={130}
-            isFill
-            fill="#EEEEEE"
-            containerStyles={{
-              position: 'absolute',
-              bottom: -45,
-              alignSelf: 'center',
-            }}
-          />
-        ),
-        tabBarStyle: tabBarStyles,
-      }}
-    >
-      <Tab.Screen
-        name={NavigationRoutes.Dashboard}
-        component={DashboardStackScreen}
-        options={() => ({
-          tabBarButton: () => null,
+    <Stack.Navigator screenOptions={{ cardStyleInterpolator: handleScreenFade }}>
+      <Stack.Screen
+        name={DashboardRoutes.Dashboard}
+        component={DashboardTabNavigation}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name={DashboardRoutes.Notifications}
+        component={NotificationsScreen}
+        options={{
+          header: () => <CommonScreenHeader title="Notifications" navigation={navigation} />,
+        }}
+      />
+      <Stack.Screen
+        name={DashboardRoutes.NoticeBoard}
+        component={NoticeBoardScreen}
+        options={{
+          header: () => <CommonScreenHeader title="Notice Board" navigation={navigation} />,
+        }}
+      />
+      <Stack.Screen
+        name={DashboardRoutes.NoticeDetails}
+        component={NoticeDetails}
+        options={({ route }: any) => ({
+          header: () => <CommonScreenHeader title={route?.params?.title} navigation={navigation} />,
         })}
       />
-      <Tab.Screen
-        name={NavigationRoutes.Projects}
-        component={ProjectsStackScreen}
-        options={() => ({
-          tabBarStyle: {
-            display: 'none',
-          },
-          tabBarIcon: ({ focused, color, size }) => (
-            <CustomIcon icon="folder1" focused={focused} title="Projects" />
+      <Stack.Screen name={DashboardRoutes.Calendar} component={CalendarScreen} />
+
+      <Stack.Screen name={NavigationRoutes.EditDetail} component={EditDetail} />
+
+      <Stack.Screen
+        name={DashboardRoutes.MyProfile}
+        component={ProfileScreen}
+        options={{
+          header: ({ navigation }) => (
+            <CommonScreenHeader
+              title="My Profile"
+              navigation={navigation}
+              headerRight={
+                <ButtonEl
+                  btnWidth={55}
+                  btnHeight={50}
+                  styles={{ elevation: 0, marginLeft: -20 }}
+                  backgroundColor={'transparent'}
+                  onPress={() => {
+                    navigation.navigate(NavigationRoutes.EditDetail)
+                  }}
+                  hasIcon={true}
+                  icon={<Icon name="Edit" width={24} height={24} fill={colors.text} isFill />}
+                />
+              }
+            />
           ),
-        })}
-      />
-      <Tab.Screen
-        name={NavigationRoutes.Logtime}
-        component={LogtimeStackScreen}
-        options={() => ({
-          tabBarStyle: {
-            display: 'none',
-          },
-          tabBarIcon: ({ focused, color, size }) => (
-            <CustomIcon icon="bars" focused={focused} title="Logtime" />
-          ),
-        })}
+        }}
       />
 
-      <Tab.Screen
-        name={NavigationRoutes.Punch}
-        component={PunchStackScreen}
-        options={() => ({
-          tabBarStyle: {
-            display: 'none',
-          },
-          tabBarIcon: ({ color, size }) => <PunchInoutButton navText="PunchIn/Out" />,
-        })}
-      />
 
-      <Tab.Screen
-        name={NavigationRoutes.Leaves}
-        component={LeaveStackScreen}
-        options={() => ({
-          tabBarStyle: {
-            display: 'none',
-          },
-          tabBarIcon: ({ focused, color, size }) => (
-            <CustomIcon icon="profile" focused={focused} title="Leaves" />
-          ),
-        })}
-      />
 
-      <Tab.Screen
-        name={NavigationRoutes.Attendance}
-        component={AttendanceStackScreen}
-        options={() => ({
-          tabBarStyle: {
-            display: 'none',
-          },
-          tabBarIcon: ({ focused, color, size }) => (
-            <CustomIcon icon="calendar" focused={focused} title="Attendance" />
-          ),
-        })}
+      <Stack.Screen
+        name={DashboardRoutes.NewPassword}
+        component={NewpasswordScreen}
+        options={{
+          header: () => <CommonScreenHeader title="New Password" navigation={navigation} />,
+        }}
       />
-    </Tab.Navigator>
+    </Stack.Navigator>
   )
 }
 
 export const NestedNavigation = (
-  <Stack.Navigator screenOptions={{ headerShown: false }}>
+  <Stack.Group screenOptions={{ headerShown: false, cardStyleInterpolator: handleScreenFade }}>
     <Stack.Screen name="NestedNav" component={TabNavigator} />
-  </Stack.Navigator>
+  </Stack.Group>
 )
 
 const styles = StyleSheet.create({})

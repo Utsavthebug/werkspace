@@ -1,7 +1,10 @@
-module.exports = {
-  project: {
-    ios: {},
-    android: {},
-  },
-  assets: ['./src/assets/fonts'],
+module.exports = ({ config }) => {
+  return {
+    project: {
+      ios: {},
+      android: {},
+    },
+    ...config,
+    assets: ['./src/assets/fonts'],
+  }
 }

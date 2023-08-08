@@ -25,7 +25,7 @@ const AttendanceDetail = ({ route, navigation }: { route: any; navigation: any }
 
   return (
     <View style={styles.container}>
-      <CommonDetails fields={fields} titles={titles} detailTitle={'Attendance Details'} />
+      <CommonDetails fields={fields} titles={titles} />
     </View>
   )
 }
@@ -35,7 +35,7 @@ export default AttendanceDetail
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f8f8',
+    // backgroundColor: '#f8f8f8',
     shadowColor: '#000000',
     shadowOffset: {
       width: 0,
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.6,
     shadowRadius: 10,
-    elevation: 16,
+    // elevation: 16,
   },
   heading: {
     marginTop: 20,
@@ -54,7 +54,6 @@ const styles = StyleSheet.create({
     fontWeight: 600,
   },
   details: {
-    backgroundColor: 'white',
     borderColor: 'black',
     padding: 20,
     margin: 15,
